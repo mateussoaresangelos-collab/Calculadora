@@ -1,170 +1,167 @@
-/* ===== VARIÁVEIS DE TEMA ===== */
+/* ===== VARIÁVEIS ===== */
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #e9ecef;
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
-  --border-color: #dee2e6;
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.2);
-
-  /* Cores Simplificadas - Light Mode */
-  --operations-color: #2d3748; /* Mais escuro que o fundo */
-  --operations-hover: #1a202c;
-  --special-color: #4a5568; /* Preto claro/cinza escuro para C e = */
-  --special-hover: #2d3748;
-
-  /* Fundo da página Light */
-  --page-bg: #9ca3af; /* Cinza */
-  /* Calculadora Light - Mais contrastante */
+  color-scheme: light;
+  --page-bg: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
   --calc-bg: #ffffff;
+  --panel-bg: #f8f9fa;
+  --panel-strong: #e9ecef;
+  --text-color: #212529;
+  --border-color: #dee2e6;
+  --operator-bg: #2d3748;
+  --operator-bg-hover: #1a202c;
+  --special-bg: #4a5568;
+  --special-bg-hover: #2d3748;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== MODO DARK ===== */
 :root[data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --border-color: #475569;
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.5);
-
-  /* Cores Dark Mode */
-  --operations-color: #94a3b8;
-  --operations-hover: #cbd5e1;
-  --special-color: #64748b;
-  --special-hover: #94a3b8;
-
-  /* Fundo da página Dark */
-  --page-bg: linear-gradient(135deg, #0f172a, #1e293b);
-  /* Calculadora Dark - Mais clara que o fundo */
+  color-scheme: dark;
+  --page-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   --calc-bg: #334155;
+  --panel-bg: #1e293b;
+  --panel-strong: #334155;
+  --text-color: #f8fafc;
+  --border-color: #475569;
+  --operator-bg: #94a3b8;
+  --operator-bg-hover: #cbd5e1;
+  --special-bg: #64748b;
+  --special-bg-hover: #94a3b8;
 }
 
 /* ===== RESET ===== */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-/* ===== BODY ===== */
+html,
 body {
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Oxygen, sans-serif;
   background: var(--page-bg);
+  color: var(--text-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   padding: 20px;
-  transition: all 0.4s ease;
-  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ===== CONTAINER ===== */
 .container {
+  width: min(100%, 380px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
   gap: 20px;
 }
 
 /* ===== BOTÃO DE TEMA ===== */
 .theme-toggle {
-  background: var(--bg-secondary);
+  background: var(--panel-bg);
   border: 2px solid var(--border-color);
   border-radius: 50px;
   padding: 10px 20px;
   cursor: pointer;
   font-weight: 600;
-  color: var(--text-primary);
-  transition: all 0.3s ease;
+  color: var(--text-color);
   font-size: 14px;
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+    transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.theme-toggle:hover {
-  border-color: var(--operations-color);
-  color: var(--operations-color);
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--operator-bg);
+  color: var(--operator-bg);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.2);
+}
+
 /* ===== CALCULADORA ===== */
 .calculator {
+  width: 100%;
+  max-width: 360px;
   background: var(--calc-bg);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 25px;
-  width: 100%;
-  max-width: 350px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.4s ease;
+  box-shadow: var(--shadow);
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   backdrop-filter: blur(10px);
 }
 
 /* ===== DISPLAY ===== */
 .display {
-  margin-bottom: 25px;
-  background: var(--bg-secondary);
+  margin-bottom: 20px;
+  background: var(--panel-bg);
   padding: 15px;
   border-radius: 15px;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 #display {
   width: 100%;
-  padding: 15px;
-  font-size: 36px;
+  height: 72px;
+  padding: 0 12px;
   border: none;
   border-radius: 10px;
   text-align: right;
-  font-weight: bold;
-  color: var(--text-primary);
-  background-color: var(--bg-tertiary);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--text-color);
+  background-color: var(--panel-strong);
   cursor: default;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #display:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
-  border-color: var(--operations-color);
+  box-shadow: inset 0 0 0 2px rgba(148, 8, 8, 0.2);
 }
 
-/* ===== BUTTONS GRID ===== */
+/* ===== GRID DOS BOTÕES ===== */
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
 /* ===== BOTÕES PADRÃO ===== */
 .btn {
-  padding: 18px 8px;
+  padding: 16px 10px;
   font-size: 18px;
   font-weight: 600;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   cursor: pointer;
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  transition: all 0.2s ease;
+  background-color: var(--panel-bg);
+  color: var(--text-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
 }
 
-.btn:hover {
-  background-color: var(--bg-tertiary);
+.btn:hover,
+.btn:focus-visible {
+  background-color: var(--panel-strong);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  border-color: var(--operations-color);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-color: var(--operator-bg);
 }
 
 .btn:active {
@@ -172,33 +169,36 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== BOTÕES OPERADORES ===== */
+/* ===== BOTÕES DE OPERAÇÃO ===== */
 .btn-operator {
-  background-color: var(--operations-color);
+  background-color: var(--operator-bg);
   color: white;
-  border-color: var(--operations-color);
+  border-color: var(--operator-bg);
   font-weight: 700;
 }
 
-.btn-operator:hover {
-  background-color: var(--operations-hover);
-  border-color: var(--operations-hover);
+.btn-operator:hover,
+.btn-operator:focus-visible {
+  background-color: var(--operator-bg-hover);
+  border-color: var(--operator-bg-hover);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ===== BOTÃO LIMPAR E IGUAL ===== */
 .btn-clear,
 .btn-equals {
-  background-color: var(--special-color);
+  background-color: var(--special-bg);
   color: white;
-  border-color: var(--special-color);
+  border-color: var(--special-bg);
   font-weight: 700;
 }
 
 .btn-clear:hover,
-.btn-equals:hover {
-  background-color: var(--special-hover);
-  border-color: var(--special-hover);
+.btn-clear:focus-visible,
+.btn-equals:hover,
+.btn-equals:focus-visible {
+  background-color: var(--special-bg-hover);
+  border-color: var(--special-bg-hover);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -210,14 +210,15 @@ body {
   }
 
   .btn {
-    padding: 16px 6px;
+    padding: 14px 8px;
     font-size: 16px;
     border-radius: 10px;
   }
 
   #display {
-    font-size: 28px;
-    padding: 12px;
+    height: 64px;
+    font-size: 1.6rem;
+    padding: 0 10px;
   }
 
   .buttons {
@@ -227,15 +228,16 @@ body {
 
 @media (max-width: 320px) {
   .calculator {
-    padding: 15px;
+    padding: 16px;
   }
 
   .btn {
-    padding: 14px 4px;
+    padding: 12px 6px;
     font-size: 14px;
   }
 
   #display {
-    font-size: 24px;
+    height: 56px;
+    font-size: 1.35rem;
   }
 }
